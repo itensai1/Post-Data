@@ -3,10 +3,12 @@ A python script that uses web scraping to collect data about a given contest .
 
 <h4>Data format after giving the contest link : </h4>
 
-<p>First Accepted  :  *handle*
+<pre>
+First Accepted  :  *handle*
 A  :  *handle*
 B  :  *handle*
-C  :  *handle*  and so on </p>
+C  :  *handle*  and so on 
+</pre>
 
 <h4>You need to install these modules to use the Script</h4>
 
