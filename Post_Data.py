@@ -43,9 +43,10 @@ def get_problems(page):
         src = status.content
         soup = BeautifulSoup(src,'lxml')
         table = soup.find("div" , {"class":"datatable"}).find("table" , {"class" : "status-frame-datatable"}).find_all("tr")
-        handle = table[1].find_all("td")[2].find("a").text
-        problem = table[1].find_all("td")[3].find("a").text.strip()[0]
-        Data.setdefault(problem,handle)
+        if table[1].find("span",{"class":"verdict-accepted"}) :
+            handle = table[1].find_all("td")[2].find("a").text
+            problem = table[1].find_all("td")[3].find("a").text.strip()[0]
+            Data.setdefault(problem,handle)
 
 def check_if_official(s_link):
     standings = requests.get(s_link)
@@ -53,7 +54,7 @@ def check_if_official(s_link):
     soup = BeautifulSoup(src,'lxml')
     Row = soup.find("tr",{"class":"standingsStatisticsRow"}).find_all("span" ,{"class":"cell-passed-system-test cell-accepted"})
     for cell in range(len(Row)):
-        if Row[cell].text=="0":
+        if Row[cell].text=="0" and Data.get(chr(ord('A')+cell-1)):
             Data.pop(chr(ord('A')+cell-1))
 
 
@@ -67,6 +68,3 @@ for x, y in Data.items():
     print(x," : ",y)
 else:
     print("\n>>>> Done :) <<<<")
-
-    
-    
